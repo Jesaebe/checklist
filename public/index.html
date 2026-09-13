@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Organize suas tarefas, prioridades e prazos.">
+  <title>Minhas atividades</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">✓</span> Fluxo</div>
+    <button class="primary-button" id="new-task-button">+ Nova atividade</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">PAINEL DE ATIVIDADES</p>
+        <h1>Organize o que importa.</h1>
+        <p class="subtitle">Acompanhe seus prazos e avance uma tarefa de cada vez.</p>
+      </div>
+      <div class="summary" aria-label="Resumo das atividades">
+        <div><strong id="pending-count">0</strong><span>Pendentes</span></div>
+        <div><strong id="overdue-count">0</strong><span>Atrasadas</span></div>
+        <div><strong id="done-count">0</strong><span>Concluídas</span></div>
+      </div>
+    </section>
+
+    <section class="toolbar" aria-label="Filtros">
+      <div class="tabs" id="status-filters">
+        <button class="tab active" data-status="all">Todas</button>
+        <button class="tab" data-status="pending">Pendentes</button>
+        <button class="tab" data-status="done">Concluídas</button>
+      </div>
+      <div class="filter-group">
+        <label class="search"><span>⌕</span><input id="search" type="search" placeholder="Buscar atividade..."></label>
+        <select id="priority-filter" aria-label="Filtrar por prioridade">
+          <option value="all">Todas as prioridades</option>
+          <option value="alta">Prioridade alta</option>
+          <option value="media">Prioridade média</option>
+          <option value="baixa">Prioridade baixa</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="task-list" class="task-list" aria-live="polite"></section>
+    <section id="empty-state" class="empty-state" hidden>
+      <div class="empty-icon">✓</div>
+      <h2>Nenhuma atividade por aqui</h2>
+      <p>Crie uma atividade ou altere os filtros para começar.</p>
+      <button class="primary-button" id="empty-new-button">Criar atividade</button>
+    </section>
+  </main>
+
+  <dialog id="task-dialog">
+    <form id="task-form">
+      <div class="dialog-header">
+        <div><p class="eyebrow">ATIVIDADE</p><h2 id="dialog-title">Nova atividade</h2></div>
+        <button type="button" class="icon-button" id="close-dialog" aria-label="Fechar">×</button>
+      </div>
+      <input type="hidden" id="task-id">
+      <label>Título <input id="title" maxlength="120" required placeholder="O que precisa ser feito?"></label>
+      <label>Descrição <textarea id="description" maxlength="2000" rows="4" placeholder="Adicione detalhes importantes..."></textarea></label>
+      <div class="form-row">
+        <label>Data limite <input id="due-date" type="date" required></label>
+        <label>Prioridade
+          <select id="priority" required>
+            <option value="baixa">Baixa</option>
+            <option value="media" selected>Média</option>
+            <option value="alta">Alta</option>
+          </select>
+        </label>
+      </div>
+      <p class="form-error" id="form-error" role="alert"></p>
+      <div class="dialog-actions">
+        <button type="button" class="secondary-button" id="cancel-dialog">Cancelar</button>
+        <button type="submit" class="primary-button">Salvar atividade</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
